@@ -21,12 +21,12 @@ const HomePage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4">
         <div className="md:col-span-7 p-4 md:p-10">
-          <TableResult searchValue={searchValue} />
+          <TableResult city={searchValue} />
         </div>
 
         <div className="md:col-span-5 p-4 md:p-10">
           <SearchBox value={searchValue} onChange={handleSearchChange}/>
-          <WeatherArea />
+          <WeatherArea city={searchValue}/>
         </div>
       </div>
     </div>
