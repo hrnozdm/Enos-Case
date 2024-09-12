@@ -91,6 +91,7 @@ const TableResult = ({ city }: TableResultProps) => {
         dataSource={tableData} 
         onRow={(record) => ({
           onClick: () => handleRowClick(record),
+          style:{cursor:'pointer'}
         })}
       />
     </div>
