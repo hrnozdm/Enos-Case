@@ -112,3 +112,8 @@ Routing: React Router DOM simplifies page transitions and URL management. It pro
 🌍 Internationalization support for dozens of languages.
 🎨 Powerful theme customization in every detail.
 UI Components: Ant Design provides a comprehensive set of UI components that ensure design consistency and give your application a professional appearance
+
+#Tailwind
+
+In our project, we used Tailwind from CSS frameworks.
+
