@@ -49,13 +49,14 @@ export default tseslint.config({
 })
 ```
 
-#Zustand
- Durum Yönetimi: Zustand, basit ve performanslı bir global durum yönetimi sağlar. Kullanımı kolaydır ve bileşenler arası veri paylaşımını optimize eder.
+Zustand
+State Management: Zustand offers a simple and performant global state management solution. It’s easy to use and optimizes data sharing between components.
 
-#React Query
- Veri Yönetimi: React Query, veri getirme, önbellekleme ve hata yönetimini otomatikleştirir. API çağrılarını daha verimli ve sorunsuz hale getirir.
+React Query
+Data Fetching: React Query automates data fetching, caching, and error handling. It enhances the efficiency and smoothness of API requests.
 
-#React Router Dom 
-  Yönlendirme: React Router DOM, sayfa geçişlerini ve URL yönetimini kolaylaştırır. Tek sayfa uygulamalarında dinamik ve hiyerarşik yönlendirme sağlar.
-#Ant Design
-  UI Bileşenleri: Ant Design, kapsamlı ve estetik UI bileşenleri sunar. Tasarım tutarlılığı sağlar ve uygulamanızı profesyonel bir görünüme kavuşturur.
+React Router DOM
+Routing: React Router DOM simplifies page transitions and URL management. It provides dynamic and hierarchical routing for single-page applications.
+
+Ant Design
+UI Components: Ant Design provides a comprehensive set of UI components that ensure design consistency and give your application a professional appearance
