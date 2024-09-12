@@ -1,50 +1,114 @@
-# React + TypeScript + Vite
+# Project Start
+ ```npm
+npm i
+npm run dev
+ ```
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Zustand
+ ```typescript
+  import { create } from 'zustand'
 
-Currently, two official plugins are available:
+type Store = {
+  count: number
+  inc: () => void
+}
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+const useStore = create<Store>()((set) => ({
+  count: 1,
+  inc: () => set((state) => ({ count: state.count + 1 })),
+}))
 
-## Expanding the ESLint configuration
+function Counter() {
+  const { count, inc } = useStore()
+  return (
+    <div>
+      <span>{count}</span>
+      <button onClick={inc}>one up</button>
+    </div>
+  )
+}
+ ```
+State Management: Zustand offers a simple and performant global state management solution. It’s easy to use and optimizes data sharing between components.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# React Query
+```typescript
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 
-- Configure the top-level `parserOptions` property like this:
+const queryClient = new QueryClient()
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Example />
+    </QueryClientProvider>
+  )
+}
+
+function Example() {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['repoData'],
+    queryFn: () =>
+      fetch('https://api.github.com/repos/TanStack/query').then((res) =>
+        res.json(),
+      ),
+  })
+
+  if (isPending) return 'Loading...'
+
+  if (error) return 'An error has occurred: ' + error.message
+
+  return (
+    <div>
+      <h1>{data.name}</h1>
+      <p>{data.description}</p>
+      <strong>👀 {data.subscribers_count}</strong>{' '}
+      <strong>✨ {data.stargazers_count}</strong>{' '}
+      <strong>🍴 {data.forks_count}</strong>
+    </div>
+  )
+}
+
 ```
+Data Fetching: React Query automates data fetching, caching, and error handling. It enhances the efficiency and smoothness of API requests.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+# React Router DOM
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```typescript
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+
+function App() {
+  
+
+  return (
+    <>
+    
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
+     
+    </>
+  )
+}
+
+export default App
+
 ```
+Routing: React Router DOM simplifies page transitions and URL management. It provides dynamic and hierarchical routing for single-page applications.
+
+# Ant Design
+✨ Features
+🌈 Enterprise-class UI designed for web applications.
+📦 A set of high-quality React components out of the box.
+🛡 Written in TypeScript with predictable static types.
+⚙️ Whole package of design resources and development tools.
+🌍 Internationalization support for dozens of languages.
+🎨 Powerful theme customization in every detail.
+UI Components: Ant Design provides a comprehensive set of UI components that ensure design consistency and give your application a professional appearance
