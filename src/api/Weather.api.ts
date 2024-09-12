@@ -1,7 +1,4 @@
-import axios from 'axios';
-
-const API_KEY = import.meta.env.VITE_API_KEY;
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import apiClient from './apiClient';
 
 const normalizeCityName = (city: string) => {
   return city.trim().toLowerCase();
@@ -11,11 +8,9 @@ export const getWeatherByCity = async (city: string) => {
   const normalizedCity = normalizeCityName(city);
 
   try {
-    const response = await axios.get(BASE_URL, {
+    const response = await apiClient.get('', {
       params: {
         city: normalizedCity,
-        key: API_KEY,
-        days: 16,
       }
     });
 
