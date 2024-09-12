@@ -1,17 +1,13 @@
 import axios from 'axios';
 
-const API_KEY = '4eb45b786f9b4071a6b51c5dfff25119'; 
-const BASE_URL = 'https://api.weatherbit.io/v2.0/forecast/daily';
-
+const API_KEY = import.meta.env.VITE_API_KEY;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const normalizeCityName = (city: string) => {
-  
   return city.trim().toLowerCase();
 };
 
-
 export const getWeatherByCity = async (city: string) => {
-  
   const normalizedCity = normalizeCityName(city);
 
   try {
@@ -22,13 +18,11 @@ export const getWeatherByCity = async (city: string) => {
         days: 16,
       }
     });
-    
-    
+
     if (response.status !== 200) {
       throw new Error(`API Error: ${response.statusText}`);
     }
 
-    
     const cityNameInResponse = response.data.city_name.toLowerCase();
 
     if (normalizedCity !== cityNameInResponse) {
@@ -38,6 +32,6 @@ export const getWeatherByCity = async (city: string) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
-    throw error;  
+    throw error;
   }
 };
