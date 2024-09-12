@@ -21,7 +21,7 @@ const HomePage = () => {
           <TableResult city={searchValue} />
         </div>
 
-        <div className="md:w-5/12 p-4 md:p-10 order-1 md:order-2 ml-10">
+        <div className="md:w-5/12 p-4 md:p-10 order-1 md:order-2 ml-14">
           <SearchBox value={searchValue} onChange={handleSearchChange}/>
           <WeatherArea city={searchValue}/>
         </div>

@@ -17,7 +17,6 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
   const resetSelectedWeather = useWeatherStore((state) => state.resetSelectedWeather);
 
   useEffect(() => {
-    
     if (!city) {
       resetSelectedWeather();
     }

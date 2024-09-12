@@ -25,18 +25,20 @@ const columns: TableProps<WeatherDataType>['columns'] = [
     title: 'Lowest Temp',
     dataIndex: 'lowTemp',
     key: 'lowTemp',
+    render: (text: string) => `${text} °C`,
   },
   {
     title: 'High Temperature',
     dataIndex: 'highTemp',
     key: 'highTemp',
+    render: (text: string) => `${text} °C`,
   },
 ];
 
 const TableResult = ({ city }: TableResultProps) => {
   const [hasSearched, setHasSearched] = useState(false);
   const [apiCityName, setApiCityName] = useState<string | null>(null);
-  const setSelectedWeather =useWeatherStore((state) => state.setSelectedWeather);
+  const setSelectedWeather = useWeatherStore((state) => state.setSelectedWeather);
 
   const { data, isLoading } = useQuery({
     queryKey: ['weatherTable', city],
@@ -64,23 +66,35 @@ const TableResult = ({ city }: TableResultProps) => {
     return <DoesNotExist />;
   }
 
-  const tableData: WeatherDataType[] = data.data.map((item: any, index: number) => ({
-    key: index.toString(),
-    days: `Day ${index + 1}`, 
-    date: dayjs(item.datetime).format('YYYY-MM-DD HH:mm'), 
-    lowTemp: item.low_temp || item.temp, 
-    highTemp: item.high_temp || item.temp,
-    description: item.weather.description,
-    icon: item.weather.icon,
-  }));
+  const tableData: WeatherDataType[] = data.data.map((item: any, index: number) => {
+    const date = dayjs(item.datetime);
+    return {
+      key: index.toString(),
+      days: date.format('dddd'), 
+      date: date.format('MMMM D, YYYY'), 
+      lowTemp: `${item.low_temp || item.temp}`,
+      highTemp: `${item.high_temp || item.temp}`,
+      description: item.weather.description,
+      icon: item.weather.icon,
+    };
+  });
 
-  const handleRowClick = (record:WeatherDataType)=>{
+  const handleRowClick = (record: WeatherDataType) => {
     setSelectedWeather(record);
-  } 
+  }; 
 
-  return <Table columns={columns} dataSource={tableData} onRow={(record)=>({
-      onClick:()=>handleRowClick(record),
-  })}/>;
+  return (
+    <div>
+      <h2 className="text-xl font-semibold mb-4 border p-3 rounded-lg">Weather Forecast</h2>
+      <Table 
+        columns={columns} 
+        dataSource={tableData} 
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
+      />
+    </div>
+  );
 };
 
 export default TableResult;
