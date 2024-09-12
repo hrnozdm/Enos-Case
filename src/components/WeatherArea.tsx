@@ -25,12 +25,12 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
 
   if (selectedWeather) {
     return (
-      <div className="w-[360px] h-[328px] p-6 bg-white rounded-lg shadow-md text-center mt-4">
-        <div className="text-4xl font-semibold text-teal-700 mb-2 mt-4">{selectedWeather.highTemp} °C</div>
+      <div className="w-[360px] h-[328px] p-6 bg-white rounded-lg shadow-md text-center mt-7">
+        <div className="text-4xl font-semibold text-teal-700 mb-2 mt-7">{selectedWeather.highTemp} °C</div>
         <div className="text-xl font-bold text-gray-800 mt-2">{formattedCity}</div>
         <div className="text-md font-bold text-gray-600 mt-2">{selectedWeather.date}</div>
         <div className="text-sm text-gray-500 mt-2">Low: {selectedWeather.lowTemp} °C</div>
-        <div className="flex items-center justify-center mt-4 text-gray-600">
+        <div className="flex items-center justify-center mt-7 text-gray-600">
           <img
             src={`https://www.weatherbit.io/static/img/icons/${selectedWeather.icon}.png`}
             alt={selectedWeather.description}
@@ -44,7 +44,7 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
 
   if (!city) {
     return (
-      <div className="w-[360px] h-[328px] p-10 bg-white rounded-lg shadow-md text-center mt-4">
+      <div className="w-[360px] h-[328px] p-10 bg-white rounded-lg shadow-md text-center mt-7">
         <div className="text-xl font-bold text-gray-800">
           Select a City
         </div>
@@ -64,7 +64,7 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
 
   if (error || !data || data.length === 0) {
     return (
-      <div className="w-[360px] h-[328px] p-10 bg-white rounded-lg shadow-md text-center mt-4">
+      <div className="w-[360px] h-[328px] p-10 bg-white rounded-lg shadow-md text-center mt-7">
         <div className="text-xl font-bold text-gray-800">
           Does Not Exist
         </div>
@@ -78,12 +78,12 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
   const { high_temp, low_temp, valid_date, weather } = data?.data[0] || {};
 
   return (
-    <div className="w-[360px] h-[328px] p-6 bg-white rounded-lg shadow-md text-center mt-4">
-      <div className="text-4xl font-semibold text-teal-700 mb-2 mt-4">{high_temp} °C</div>
+    <div className="w-[360px] h-[328px] p-6 bg-white rounded-lg shadow-md text-center mt-7">
+      <div className="text-4xl font-semibold text-teal-700 mb-2 mt-7">{high_temp} °C</div>
       <div className="text-xl font-bold text-gray-800 mt-2">{formattedCity}</div>
       <div className="text-md font-bold text-gray-600 mt-2">{valid_date}</div>
       <div className="text-sm text-gray-500 mt-2">Low: {low_temp} °C</div>
-      <div className="flex items-center justify-center mt-4 text-gray-600">
+      <div className="flex items-center justify-center mt-7 text-gray-600">
         <img
           src={`https://www.weatherbit.io/static/img/icons/${weather?.icon}.png`}
           alt={weather?.description}

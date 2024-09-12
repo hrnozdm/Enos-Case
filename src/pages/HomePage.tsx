@@ -12,19 +12,16 @@ const HomePage = () => {
     setSearchValue(e.target.value);
   };
 
-  
-  
-
   return (
     <div>
       <Header />
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4">
-        <div className="md:col-span-7 p-4 md:p-10">
+      <div className="flex flex-col md:flex-row gap-4 p-4">
+        <div className="md:w-7/12 p-4 md:p-10 order-2 md:order-1">
           <TableResult city={searchValue} />
         </div>
 
-        <div className="md:col-span-5 p-4 md:p-10">
+        <div className="md:w-5/12 p-4 md:p-10 order-1 md:order-2 ml-10">
           <SearchBox value={searchValue} onChange={handleSearchChange}/>
           <WeatherArea city={searchValue}/>
         </div>
