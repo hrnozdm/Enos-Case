@@ -3,15 +3,12 @@ import { WeatherAreaProps } from "../Types/WeatherArea.Interface";
 import { getWeatherByCity } from "../api/Weather.api";
 
 const WeatherArea = ({ city }: WeatherAreaProps) => {
-
-
-  const { data, isLoading} = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['weather', city],
     queryFn: () => getWeatherByCity(city),
     enabled: !!city,
   });
 
-  
   const formattedCity = city ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() : "";
 
   if (!city) {
@@ -27,7 +24,14 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
     );
   }
 
-  if (!data || data.length==0) {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(data);
+  
+
+  if (error || !data || data.length === 0) {
     return (
       <div className="w-[360px] h-[328px] p-10 bg-white rounded-lg shadow-md text-center mt-4">
         <div className="text-xl font-bold text-gray-800">
@@ -39,27 +43,6 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
       </div>
     );
   }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-
-  if (!data) {
-    return (
-      <div className="w-[360px] h-[328px] p-10 bg-white rounded-lg shadow-md text-center mt-4">
-        <div className="text-xl font-bold text-gray-800">
-          Select a City
-        </div>
-        <div className="text-sm text-gray-500">
-          Search and select a city to see results. Try typing the first letters of the city you want.
-        </div>
-      </div>
-    );
-  }
-
-  console.log(data);
-  
 
   const { high_temp, low_temp, valid_date, weather } = data?.data[0] || {};
 
