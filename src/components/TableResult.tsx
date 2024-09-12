@@ -8,6 +8,7 @@ import DefaultHome from './DefaultHome';
 import DoesNotExist from './DoesNotExist';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs'; 
+import { useWeatherStore } from '../store/weatherStore';
 
 const columns: TableProps<WeatherDataType>['columns'] = [
   {
@@ -35,12 +36,13 @@ const columns: TableProps<WeatherDataType>['columns'] = [
 const TableResult = ({ city }: TableResultProps) => {
   const [hasSearched, setHasSearched] = useState(false);
   const [apiCityName, setApiCityName] = useState<string | null>(null);
+  const setSelectedWeather =useWeatherStore((state) => state.setSelectedWeather);
 
   const { data, isLoading } = useQuery({
     queryKey: ['weatherTable', city],
     queryFn: async () => {
       const response = await getWeatherByCity(city);
-      setApiCityName(response.city_name.toLowerCase()); // API'den dönen şehir adını küçük harfe çevir
+      setApiCityName(response.city_name.toLowerCase()); 
       return response;
     },
     enabled: !!city,
@@ -72,7 +74,13 @@ const TableResult = ({ city }: TableResultProps) => {
     icon: item.weather.icon,
   }));
 
-  return <Table columns={columns} dataSource={tableData} />;
+  const handleRowClick = (record:WeatherDataType)=>{
+    setSelectedWeather(record);
+  } 
+
+  return <Table columns={columns} dataSource={tableData} onRow={(record)=>({
+      onClick:()=>handleRowClick(record),
+  })}/>;
 };
 
 export default TableResult;

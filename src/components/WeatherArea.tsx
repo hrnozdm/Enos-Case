@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { WeatherAreaProps } from "../Types/WeatherArea.Interface";
 import { getWeatherByCity } from "../api/Weather.api";
+import { useWeatherStore } from "../store/weatherStore";
+import { useEffect } from "react";
 
 const WeatherArea = ({ city }: WeatherAreaProps) => {
   const { data, isLoading, error } = useQuery({
@@ -10,6 +12,35 @@ const WeatherArea = ({ city }: WeatherAreaProps) => {
   });
 
   const formattedCity = city ? city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() : "";
+  const selectedWeather = useWeatherStore((state) =>state.selectedWeather);
+
+  const resetSelectedWeather = useWeatherStore((state) => state.resetSelectedWeather);
+
+  useEffect(() => {
+    
+    if (!city) {
+      resetSelectedWeather();
+    }
+  }, [city, resetSelectedWeather]);
+
+  if (selectedWeather) {
+    return (
+      <div className="w-[360px] h-[328px] p-6 bg-white rounded-lg shadow-md text-center mt-4">
+        <div className="text-4xl font-semibold text-teal-700 mb-2 mt-4">{selectedWeather.highTemp} °C</div>
+        <div className="text-xl font-bold text-gray-800 mt-2">{formattedCity}</div>
+        <div className="text-md font-bold text-gray-600 mt-2">{selectedWeather.date}</div>
+        <div className="text-sm text-gray-500 mt-2">Low: {selectedWeather.lowTemp} °C</div>
+        <div className="flex items-center justify-center mt-4 text-gray-600">
+          <img
+            src={`https://www.weatherbit.io/static/img/icons/${selectedWeather.icon}.png`}
+            alt={selectedWeather.description}
+            className="w-10 h-10 mr-2"
+          />
+          <span className="text-sm">{selectedWeather.description}</span>
+        </div>
+      </div>
+    );
+  }
 
   if (!city) {
     return (
